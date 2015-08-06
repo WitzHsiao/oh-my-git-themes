@@ -71,6 +71,7 @@ function custom_build_prompt {
     local black_on_red="%K{red}%F{black}"
     local white_on_red="%K{red}%F{white}"
     local yellow_on_red="%K{red}%F{yellow}"
+    local black_on_purple="%K{134}%F{black}"
  
     # Flags
     local omg_default_color_on="${black_on_white}"
@@ -132,7 +133,10 @@ function custom_build_prompt {
             fi
         fi
         prompt+=$(enrich_append ${is_on_a_tag} "${omg_is_on_a_tag_symbol} ${tag_at_current_commit}" "${black_on_red}")
-        prompt+="%k%F{red}%k%f
+        remote_name=$(git config --get remote.origin.url)
+        prompt+="%k%F{red}%k%f\n"
+        prompt+=$(enrich_append true " ${remote_name}" "${black_on_purple}")
+        prompt+="%k%F{134}%k%f
 ${omg_second_line}"
     else
         prompt="${omg_ungit_prompt}"
